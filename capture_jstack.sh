@@ -75,4 +75,5 @@ fi
 find ${JSTACK_PATH}/*.txt -type f -not -newermt "$(date -d '1 day ago' '+%Y-%m-%d %H:%M:%S')" -exec rm {} \;
 
 ## Crontab format to schedule the jobs.
-## */6 * * * * sh /root/jstack_test.sh APPID USER PATH INTERATIONS SLEEPTIME > /$PATH/command_output.txt
+## */7 * * * * sh jstack_test.sh application_1708345967356_0076 hive /var/tmp/jstack 20 15 > /var/tmp/jstack/command_output.txt
+## NOTE: Change the example values with your actual values.
