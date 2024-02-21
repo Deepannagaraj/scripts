@@ -1,6 +1,7 @@
 #!/bin/bash
 
 ## Script to collect JSTACKs at regular intervals.
+## This script will collect the JSTACKs at specified interval and does the rotation every hour. Also cleans the JSTACK files which are more than one day older.
 
 if [ "$#" -ne 5 ]; then
 	echo -e "\n\t>>> Incorrect Usage: <<<\n\t===> Usage: $0 APPLICATION_ID USER OUTPUT_PATH NUM_ITERATIONS SLEEP_SECS <===\n"
