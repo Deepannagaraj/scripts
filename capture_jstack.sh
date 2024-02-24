@@ -8,7 +8,7 @@ if [ "$#" -ne 5 ]; then
 fi
 
 ## JAVA_HOME / JAVA_PATH in case if needed:
-# JAVA_PATH=/usr/java/jdk1.8.0_232-cloudera/bin
+JAVA_PATH=/usr/java/jdk1.8.0_232-cloudera/bin
 
 # Check for the valid JSTACK command.
 JS_COM=$(which jstack &> /dev/null ; echo $?)
@@ -116,4 +116,4 @@ fi
 find ${JSTACK_PATH}/*.txt -type f -not -newermt "$(date -d '1 day ago' '+%Y-%m-%d %H:%M:%S')" -exec rm {} \;
 
 ## Crontab format to schedule the jobs.
-## */6 * * * * sh /root/jstack_test.sh APPID USER PATH INTERATIONS SLEEPTIME > /$PATH/command_output.txt
+## */6 * * * * sh /root/jstack_test.sh APPID USER PATH INTERATIONS SLEEPTIME >> /$PATH/command_output.txt
