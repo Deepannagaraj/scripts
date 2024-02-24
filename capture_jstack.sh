@@ -41,6 +41,7 @@ JSTACK_PATH=$3
 NUM_ITERATIONS=$4
 SLEEP_TIME=$5
 
+## Creating the output directory.
 if [ ! -d "$JSTACK_PATH" ]; then
     echo -e "Output directory doesn't exist. Creating a new one...\n"
 	mkdir $JSTACK_PATH
