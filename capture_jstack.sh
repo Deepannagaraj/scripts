@@ -8,23 +8,18 @@ if [ "$#" -ne 5 ]; then
 fi
 
 ## JAVA_HOME / JAVA_PATH in case if needed:
-# JAVA_PATH=/usr/java/jdk1.8.0_232-cloudera/bin
+JAVA_PATH=/usr/java/jdk1.8.0_232-cloudera/bin
 
 # Check for the valid JSTACK command.
-JS_COM=$(which jstack 2> /dev/null ; echo $?)
-JS_JP_COM==$(which "$JAVA_PATH"/jstack 2> /dev/null ; echo $?)
+JS_COM=$(which jstack 2&> /dev/null ; echo $?)
+JS_PATH=$JAVA_PATH/jstack
 
-if [ "$JS_COM" -eq 0 ] && [ "$JS_JP_COM" -eq 0 ]; then
-	echo -e "\n\tNo valid JSTACK command found.\n\tProvide the valid path by uncommenting the JAVA_PATH variable.\n\tExiting from the script !!!\n"
-	exit 3
+if [ "$JS_COM" -ne 0 ] ; then
+	if [ ! -e "$JS_PATH" ]; then
+		echo -e "\n\tNo valid JSTACK command found.\n\tProvide the valid path by uncommenting the JAVA_PATH variable.\n\tExiting from the script !!!\n"
+		exit 3
+	fi
 fi
-
-## Validating the inputs.
-APP_ID=$1
-USER=$2
-JSTACK_PATH=$3
-NUM_ITERATIONS=$4
-SLEEP_TIME=$5
 
 ## Checking for the Kerberos ticket...
 KRB_ENABLED=1
@@ -39,6 +34,17 @@ else
 	fi
 fi
 
+## Validating the inputs.
+APP_ID=$1
+USER=$2
+JSTACK_PATH=$3
+NUM_ITERATIONS=$4
+SLEEP_TIME=$5
+
+if [ ! -d "$JSTACK_PATH" ]; then
+    echo -e "Output directory doesn't exist. Creating a new one...\n"
+	mkdir $JSTACK_PATH
+fi
 
 ## Check if the application is running.. Else fail.
 APP_STATUS=$(yarn app -status "$APP_ID" 2> /dev/null | grep 'State' | grep -v 'Final' | awk -F' ' {'print $NF'})
@@ -46,11 +52,11 @@ APP_STATUS=$(yarn app -status "$APP_ID" 2> /dev/null | grep 'State' | grep -v 'F
 if [[ "$APP_STATUS" == "FINISHED" ]] || [[ "$APP_STATUS" == "KILLED" ]]; then
 	echo -e "\n\tThis application is already completed / killed. Exiting from the script !!!\n"
 	exit 5
-fi
-
-if [[ "$APP_STATUS" != "RUNNING" ]]; then
+elif [[ "$APP_STATUS" != "RUNNING" ]]; then
 	echo -e "\n\tThis application status is unknown. Exiting from the script !!!\n"
 	exit 6
+else
+	echo -e "\n\tApplication is in running status. Continuing with JSTACK collection !!!\n"
 fi
 
 ## Getting the PID of the containers.
@@ -65,23 +71,26 @@ if [ "$NUM_CONT" -eq 0 ]; then
 fi
 
 ## Capturing the JSTACKs.
-ITERATIONS=$(seq 1 "$NUM_ITERATIONS")
+ITERATIONS=1
 
-for i in $ITERATIONS
-	do
-		echo "Iteration : $i"
-		date
-		for CONT_PID in $CONTAINERS_LIST
+while [ "$ITERATIONS" -le "$NUM_ITERATIONS" ]; do
+	echo "Iteration : $ITERATIONS"
+	date
+	for CONT_PID in $CONTAINERS_LIST
 		do 
 			CONT_ID=$(ps -ef | grep "$CONT_PID" | tr ' ' '\n' | grep 'container.log.dir' | awk -F'/' {'print $NF'})	
 			echo -e "Collecting JSTACK for Container $CONT_ID -- Process $CONT_PID ..."
-			sudo -u ${USER} ${JAVA_PATH}/jstack -l ${CONT_PID} >> /${JSTACK_PATH}/jstacks_${CONT_ID}.txt
+			sudo -u ${USER} ${JAVA_PATH}/jstack -l ${CONT_PID} >> ${JSTACK_PATH}/jstacks_${CONT_ID}.txt
 	done
 	date
-	echo -e "Sleeping for $SLEEP_TIME seconds to start next iteration !!!\n"
-	sleep ${SLEEP_TIME}
+	if [ "$ITERATIONS" -lt "$NUM_ITERATIONS" ]; then
+		echo -e "Next iteration will start in $SLEEP_TIME seconds...\n"
+		sleep ${SLEEP_TIME}
+	fi
+    # Increment the counter
+    ((ITERATIONS++))
 done
-echo -e "\t======\nCaptured JSTACKs for $NUM_ITERATIONS times at a interval of $SLEEP_TIME secs\n======"
+echo -e "\n\t======\n\tCaptured JSTACKs $NUM_ITERATIONS times at a interval of $SLEEP_TIME secs\n\t======"
 
 ## Clean the JSTACK after every hour.
 CURRENT_TIME=$(date +%s)
