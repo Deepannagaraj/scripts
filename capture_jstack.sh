@@ -26,17 +26,31 @@ JSTACK_PATH=$3
 NUM_ITERATIONS=$4
 SLEEP_TIME=$5
 
+## Checking for the Kerberos ticket...
+KRB_ENABLED=1
+
+if [ "$KRB_ENABLED" -eq 0 ]; then
+	echo -e "\n\tKerberos not enabled continuing to run the script without Kerberos !!!\n"
+else
+	KRB_CHECK=$(klist > /dev/null ; echo $?)
+	if [ "$KRB_CHECK" -eq 1 ]; then
+		echo -e "\n\tNo valid Kerberos ticket found. Get the Kerberos ticket and then run the command.\n\tExiting from the script !!!\n"
+		exit 4
+	fi
+fi
+
+
 ## Check if the application is running.. Else fail.
 APP_STATUS=$(yarn app -status "$APP_ID" 2> /dev/null | grep 'State' | grep -v 'Final' | awk -F' ' {'print $NF'})
 
-if [[ "$APP_STATUS" == "FINISHED" ]]; then
-	echo -e "\n\tThis application is already completed. Exiting from the script !!!\n"
-	exit 4
+if [[ "$APP_STATUS" == "FINISHED" ]] || [[ "$APP_STATUS" == "KILLED" ]]; then
+	echo -e "\n\tThis application is already completed / killed. Exiting from the script !!!\n"
+	exit 5
 fi
 
 if [[ "$APP_STATUS" != "RUNNING" ]]; then
 	echo -e "\n\tThis application status is unknown. Exiting from the script !!!\n"
-	exit 5
+	exit 6
 fi
 
 ## Getting the PID of the containers.
@@ -47,7 +61,7 @@ NUM_CONT=$(ps -ef | grep "$APP_ID" | grep -v -e bash -e container-executor -e gr
 
 if [ "$NUM_CONT" -eq 0 ]; then
 	echo -e "\n\tThere are no containers running for this application in this NodeManager node. Exiting the from the script !!!\n"
-	exit 6
+	exit 7
 fi
 
 ## Capturing the JSTACKs.
