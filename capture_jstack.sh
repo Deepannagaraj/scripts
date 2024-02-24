@@ -8,7 +8,7 @@ if [ "$#" -ne 5 ]; then
 fi
 
 ## JAVA_HOME / JAVA_PATH in case if needed:
-JAVA_PATH=/usr/java/jdk1.8.0_232-cloudera/bin
+# JAVA_PATH=/usr/java/jdk1.8.0_232-cloudera/bin
 
 # Check for the valid JSTACK command.
 JS_COM=$(which jstack 2&> /dev/null ; echo $?)
