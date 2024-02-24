@@ -1,15 +1,23 @@
 #!/bin/bash
 
 ## Script to collect JSTACKs at regular intervals.
-## This script will collect the JSTACKs at specified interval and does the rotation every hour. Also cleans the JSTACK files which are more than one day older.
 
 if [ "$#" -ne 5 ]; then
 	echo -e "\n\t>>> Incorrect Usage: <<<\n\t===> Usage: $0 APPLICATION_ID USER OUTPUT_PATH NUM_ITERATIONS SLEEP_SECS <===\n"
-	exit 1
+	exit 2
 fi
 
 ## JAVA_HOME / JAVA_PATH in case if needed:
-#JAVA_PATH=/usr/java/jdk1.8.0_232-cloudera/bin
+# JAVA_PATH=/usr/java/jdk1.8.0_232-cloudera/bin
+
+# Check for the valid JSTACK command.
+JS_COM=$(which jstack 2> /dev/null ; echo $?)
+JS_JP_COM==$(which "$JAVA_PATH"/jstack 2> /dev/null ; echo $?)
+
+if [ "$JS_COM" -eq 0 ] && [ "$JS_JP_COM" -eq 0 ]; then
+	echo -e "\n\tNo valid JSTACK command found.\n\tProvide the valid path by uncommenting the JAVA_PATH variable.\n\tExiting from the script !!!\n"
+	exit 3
+fi
 
 ## Validating the inputs.
 APP_ID=$1
@@ -22,17 +30,25 @@ SLEEP_TIME=$5
 APP_STATUS=$(yarn app -status "$APP_ID" 2> /dev/null | grep 'State' | grep -v 'Final' | awk -F' ' {'print $NF'})
 
 if [[ "$APP_STATUS" == "FINISHED" ]]; then
-	echo "This application is already completed. Exiting from the script !!!"
-	exit 3
+	echo -e "\n\tThis application is already completed. Exiting from the script !!!\n"
+	exit 4
 fi
 
 if [[ "$APP_STATUS" != "RUNNING" ]]; then
-	echo "This application status is unknown. Exiting from the script !!!"
-	exit 6
+	echo -e "\n\tThis application status is unknown. Exiting from the script !!!\n"
+	exit 5
 fi
 
-## Finding the PID of the containers.
+## Getting the PID of the containers.
 CONTAINERS_LIST=$(ps -ef | grep "$APP_ID" | grep -v -e bash -e container-executor -e grep -e jstack | awk '{print $2}')
+
+## Check for running containers.
+NUM_CONT=$(ps -ef | grep "$APP_ID" | grep -v -e bash -e container-executor -e grep -e jstack | awk '{print $2}' | wc -l)
+
+if [ "$NUM_CONT" -eq 0 ]; then
+	echo -e "\n\tThere are no containers running for this application in this NodeManager node. Exiting the from the script !!!\n"
+	exit 6
+fi
 
 ## Capturing the JSTACKs.
 ITERATIONS=$(seq 1 "$NUM_ITERATIONS")
@@ -51,7 +67,7 @@ for i in $ITERATIONS
 	echo -e "Sleeping for $SLEEP_TIME seconds to start next iteration !!!\n"
 	sleep ${SLEEP_TIME}
 done
-echo -e "======\nCaptured JSTACKs for $NUM_ITERATIONS times at a interval of $SLEEP_TIME secs\n======"
+echo -e "\t======\nCaptured JSTACKs for $NUM_ITERATIONS times at a interval of $SLEEP_TIME secs\n======"
 
 ## Clean the JSTACK after every hour.
 CURRENT_TIME=$(date +%s)
@@ -76,5 +92,4 @@ fi
 find ${JSTACK_PATH}/*.txt -type f -not -newermt "$(date -d '1 day ago' '+%Y-%m-%d %H:%M:%S')" -exec rm {} \;
 
 ## Crontab format to schedule the jobs.
-## */7 * * * * sh jstack_test.sh application_1708345967356_0076 hive /var/tmp/jstack 20 15 > /var/tmp/jstack/command_output.txt
-## NOTE: Change the example values with your actual values.
+## */6 * * * * sh /root/jstack_test.sh APPID USER PATH INTERATIONS SLEEPTIME > /$PATH/command_output.txt
