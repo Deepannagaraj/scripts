@@ -11,7 +11,7 @@ fi
 # JAVA_PATH=/usr/java/jdk1.8.0_232-cloudera/bin
 
 # Check for the valid JSTACK command.
-JS_COM=$(which jstack 2&> /dev/null ; echo $?)
+JS_COM=$(which jstack &> /dev/null ; echo $?)
 JS_PATH=$JAVA_PATH/jstack
 
 if [ "$JS_COM" -ne 0 ] ; then
@@ -27,9 +27,9 @@ KRB_ENABLED=1
 if [ "$KRB_ENABLED" -eq 0 ]; then
 	echo -e "\n\tKerberos not enabled continuing to run the script without Kerberos !!!\n"
 else
-	KRB_CHECK=$(klist > /dev/null ; echo $?)
+	KRB_CHECK=$(klist &> /dev/null ; echo $?)
 	if [ "$KRB_CHECK" -eq 1 ]; then
-		echo -e "\n\tNo valid Kerberos ticket found. Get the Kerberos ticket and then run the command.\n\tExiting from the script !!!\n"
+		echo -e "\n\tNo valid Kerberos ticket found. Get the Kerberos ticket and then run the command.\n\tIf the cluster is not Kerberised then set the 'KRB_ENABLED' to '0' at line number #25 and rerun the script.\n\tExiting from the script !!!\n"
 		exit 4
 	fi
 fi
