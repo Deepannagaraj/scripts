@@ -108,7 +108,7 @@ TIME_DIFF=$((CURRENT_TIME - LAST_JSTACK_CLEAN_TIME))
 HOUR_DIFF=$(date -u -d @"$TIME_DIFF" +'%H')
 
 if [ "$HOUR_DIFF" -ne 0 ]; then
-	find ${JSTACK_PATH}/*.txt -type f -exec bash -c 'timestamp=$(date +%Y-%m-%dT%H:%M:%S); mv "$1" "${1%.*}_${timestamp}.${1##*.}"' _ {} \;
+	find ${JSTACK_PATH}/*.txt -type f -exec bash -c 'timestamp=$(date +%Y-%m-%dT%H:%M:%S); mv "$1" "${1%.*}_${timestamp}.out"' _ {} \;
 	echo $CURRENT_TIME > "$CLEAN_FILE"
 fi
 
