@@ -9,6 +9,8 @@ Links to How-To section for the scripts:
 
 - [capture_jstack.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#capture_jstacksh)
 - [timedifference.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#timedifferencesh)
+- [sparkdiff.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#sparkdiffsh)
+- [event_configs.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#event_configssh)
 
 ==================================================================================
 
@@ -68,8 +70,8 @@ Total time taken
 ```
 
 **NOTE:**
--> This script might not work properly for Spark Application which are using custom log4j.properties.
--> This script might also not work properly for the other than Spark Applications.
+- This script might not work properly for Spark Application which are using custom log4j.properties.
+- This script might also not work properly for the other than Spark Applications.
 
 ## sparkdiff.sh
 
@@ -114,6 +116,9 @@ $ sh /var/tmp/sparkdiff.sh application_1710074961896_286303 application_17100749
 > "RecordsRead.integer":"90636862794"
 ```
 
+**NOTE:**
+- Make sure we have the python3 command available to run this script.
+
 ## event_configs.sh
 
 Using this script we can find the configuration differences between two Spark applications.
@@ -133,3 +138,6 @@ SAMPLE OUTPUT:
 $ sh /var/tmp/event_configs.sh application_1710074961896_286303 | grep 'deployMode'
     "spark.submit.deployMode": "client",
 ```
+
+**NOTE:**
+- Make sure we have the jq command available to run this script.
