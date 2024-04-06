@@ -1,6 +1,6 @@
 ## NOTE: Some scripts are taken from some other GitHub repositories.
 
-# Scritps
+# Scripts
 
 We have some handy scripts which will help us in reducing the manual work for few operations.
 
