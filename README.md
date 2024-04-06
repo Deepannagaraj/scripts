@@ -121,7 +121,7 @@ $ sh /var/tmp/sparkdiff.sh application_1710074961896_286303 application_17100749
 
 ## event_configs.sh
 
-Using this script we can find the configuration differences between two Spark applications.
+Using this script we can find the value of a configuration parameter from Spark event log file.
 
 Download the scripts to the local node.
 ```bash
