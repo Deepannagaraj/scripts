@@ -1,4 +1,4 @@
-### NOTE: Some scripts are taken from some other GitHub repositories.
+## NOTE: Some scripts are taken from some other GitHub repositories.
 
 # Scritps
 
