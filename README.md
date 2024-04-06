@@ -46,7 +46,7 @@ $ curl -o /var/tmp/split_log_yarn.py https://raw.githubusercontent.com/Deepannag
 
 Split the YARN Application logs.
 ```bash
-$ python /Users/dnagarathinam/Documents/commands/split_log_yarn <application_log> <output_dir>
+$ python /var/tmp/split_log_yarn.py <APPLICATION_LOG> <OUTPUT_DIR>
 ```
 
 Once the logs are split, pick any container log and run the below command.
