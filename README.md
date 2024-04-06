@@ -8,6 +8,7 @@ We have some handy scripts which will help us in reducing the manual work for fe
 Links to How-To section for the scripts:
 
 - [capture_jstack.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#capture_jstacksh)
+- [timedifference.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#timedifferencesh)
 
 ==================================================================================
 
@@ -37,8 +38,8 @@ We can use this script to find the time taken for a container to run / finish.
 
 Download the scripts to the local node.
 ```bash
-$ curl -o /var/tmp/timedifference.sh https://raw.githubusercontent.com/Deepannagaraj/scripts/main/capture_jstack.sh
-$ curl -o /var/tmp/split_log_yarn.py https://raw.githubusercontent.com/Deepannagaraj/scripts/main/capture_jstack.sh
+$ curl -o /var/tmp/timedifference.sh https://raw.githubusercontent.com/Deepannagaraj/scripts/main/timedifference.sh
+$ curl -o /var/tmp/split_log_yarn.py https://raw.githubusercontent.com/Deepannagaraj/scripts/main/split_log_yarn.py
 ```
 
 Split the YARN Application logs.
