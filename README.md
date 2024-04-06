@@ -31,7 +31,7 @@ For long running applications, we can add the below statement to the crontab fil
 ```
 
 
-## capture_jstack.sh
+## timedifference.sh
 
 We can use this script to find the time taken for a container to run / finish.
 
