@@ -53,9 +53,9 @@ $ /var/tmp/timedifference.sh CONTAINER_LOG
 
 SAMPLE OUTPUT:
 ```bash
-$ split_log_yarn application_1707198725210_656778.log application_1707198725210_656778-split
+$ python /var/tmp/split_log_yarn.py application_1707198725210_656778.log application_1707198725210_656778-split
 
-$ timedifference.sh application_1707198725210_656778-split/containers/container_e34_1707198725210_656778_01_000001/stderr 
+$ sh /var/tmp/timedifference.sh application_1707198725210_656778-split/containers/container_e34_1707198725210_656778_01_000001/stderr 
         ==> Start Timstamp
 24/04/03 19:34:12
 
