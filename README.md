@@ -49,7 +49,7 @@ $ python /Users/dnagarathinam/Documents/commands/split_log_yarn <application_log
 
 Once the logs are split, pick any container log and run the below command.
 ```bash
-$ /var/tmp/timedifference.sh CONTAINER_LOG
+$ sh /var/tmp/timedifference.sh CONTAINER_LOG
 ```
 
 SAMPLE OUTPUT:
@@ -65,4 +65,71 @@ $ sh /var/tmp/timedifference.sh application_1707198725210_656778-split/container
 
 Total time taken
 0 years 0 months 0 days 00 hours 14 minutes 06 seconds
+```
+
+**NOTE:**
+-> This script might not work properly for Spark Application which are using custom log4j.properties.
+-> This script might also not work properly for the other than Spark Applications.
+
+## sparkdiff.sh
+
+Using this script we can find the configuration differences between two Spark applications.
+
+Download the scripts to the local node.
+```bash
+$ curl -o /var/tmp/sparkdiff.sh https://raw.githubusercontent.com/Deepannagaraj/scripts/main/sparkdiff.sh
+```
+
+Run the command like below.
+```bash
+$ sh /var/tmp/sparkdiff.sh EVENT_LOG_1 EVENT_LOG_2
+```
+
+SAMPLE OUTPUT:
+```bash
+$ sh /var/tmp/sparkdiff.sh application_1710074961896_286303 application_1710074961896_286368
+6,7c6,7
+< "spark.app.id":"application_1711234513896_286303"
+< "spark.app.name":"agg_customers"
+---
+> "spark.app.id":"application_1711234513896_286368"}
+> "spark.app.name":"'agg_usage'"
+10,11c10,11
+< "spark.driver.maxResultSize":"4g"
+< "spark.driver.memory":"20G"
+---
+> "spark.driver.maxResultSize":"3g"
+> "spark.driver.memory":"60G"
+16c16
+< "spark.executor.cores":"4"
+---
+> "spark.executor.cores":"3"
+91,93c91,93
+< "BytesRead.integer":"1175839872364"
+< "BytesRead.iec":"1.1Ti"
+< "RecordsRead.integer":"96324947297"
+---
+> "BytesRead.integer":"1333777864594"
+> "BytesRead.iec":"1.3Ti"
+> "RecordsRead.integer":"90636862794"
+```
+
+## event_configs.sh
+
+Using this script we can find the configuration differences between two Spark applications.
+
+Download the scripts to the local node.
+```bash
+$ curl -o /var/tmp/event_configs.sh https://raw.githubusercontent.com/Deepannagaraj/scripts/main/event_configs.sh
+```
+
+Run the command like below.
+```bash
+$ sh /var/tmp/event_configs.sh SPARK_EVENT_LOG | grep CONFIG_TO_FIND
+```
+
+SAMPLE OUTPUT:
+```bash
+$ sh /var/tmp/event_configs.sh application_1710074961896_286303 | grep 'deployMode'
+    "spark.submit.deployMode": "client",
 ```
