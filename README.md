@@ -5,6 +5,12 @@ We have some handy scripts which will help us in reducing the manual work for fe
 
 ==================================================================================
 
+How-To Links:
+
+- [capture_jstack.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#capture_jstacksh)
+
+==================================================================================
+
 ## capture_jstack.sh
 
 This script is used to capture the JSTACKs running on a NodeManager (YARN).
