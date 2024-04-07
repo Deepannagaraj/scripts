@@ -9,9 +9,15 @@ fi
 ### Script to find the time taken to complete the job from the AM / Driver container!!!
 FILE_NAME=$1
 
+if [ -f "$FILE_NAME" ]; then
+    echo ""
+else
+    echo -e "\n\tFile does not exist: $FILE_NAME. Provide a valid File path\n"
+	exit 3
+fi
+
 ### Start time date calculation:
 START_DATETIME_1=`grep ^[0-9] $FILE_NAME | head -n1 | awk -F' ' {'print $1,$2'} | awk -F',' {'print $1'}`
-
 SDT=`echo $START_DATETIME_1 | grep [1-9]$`
 
 if [ -z "$SDT" ]; then
@@ -20,20 +26,10 @@ else
 	START_DATETIME=$START_DATETIME_1
 fi
 
-echo -e "\t==> Start Timstamp"
-echo $START_DATETIME
-
-START_YEAR=`echo $START_DATETIME | awk -F'/' {'print $1'}`
-START_MONTH=`echo $START_DATETIME | awk -F'/' {'print $2'}`
-START_DATE=`echo $START_DATETIME | awk -F'/' {'print $3'} | awk -F' ' {'print $1'}`
-START_TIME=`echo $START_DATETIME | awk -F' ' {'print $2'}`
-
-### Convert the time to seconds:
-START_SECS=`gdate --date "$START_TIME" +%s`
+echo -e "\t-> Start Timestamp:\t$START_DATETIME"
 
 ### End time date calculation:
 END_DATETIME_1=`grep ^[0-9] $FILE_NAME | tail -n1 | awk -F' ' {'print $1,$2'} | awk -F',' {'print $1'}`
-
 EDT=`echo $END_DATETIME_1 | grep [1-9]$`
 
 if [ -z "$SDT" ]; then
@@ -42,30 +38,46 @@ else
 	END_DATETIME=$END_DATETIME_1
 fi
 
-echo -e "\n\t==> Ending Timstamp"
-echo $END_DATETIME
+echo -e "\n\t-> End Timestamp:\t$END_DATETIME"
 
-END_YEAR=`echo $END_DATETIME | awk -F'/' {'print $1'}`
-END_MONTH=`echo $END_DATETIME | awk -F'/' {'print $2'}`
-END_DATE=`echo $END_DATETIME | awk -F'/' {'print $3'} | awk -F' ' {'print $1'}`
-END_TIME=`echo $END_DATETIME | awk -F' ' {'print $2'}`
+if [[ $START_DATETIME == *-* ]]; then
+    DELIMITER='-'
+elif [[ $START_DATETIME == */* ]]; then
+	DELIMITER='/'
+else
+	echo -e "Invalid date format"
+	exit 4
+fi
 
-### Convert the time to seconds:
-END_SECS=`gdate --date "$END_TIME" +%s`
+OPTS="-j -f"
 
-### Diffence Calculations:
+case $DELIMITER in
 
-TIMETAKEN=`echo "$(($END_SECS - $START_SECS))"`
-ACT_DIFF=`gdate --date "@$TIMETAKEN" -u +%H:%M:%S`
+	"-")
+		START_EPOCH=`date $OPTS "%Y-%m-%d %H:%M:%S" "$START_DATETIME" +%s`
+		END_EPOCH=`date $OPTS "%Y-%m-%d %H:%M:%S" "$END_DATETIME" +%s`
+		;;
 
-HOUR=`echo $ACT_DIFF | awk -F'\:' {'print $1'}`
-MINS=`echo $ACT_DIFF | awk -F'\:' {'print $2'}`
-SECS=`echo $ACT_DIFF | awk -F'\:' {'print $3'}`
+	"/")
+		START_EPOCH=`date $OPTS "%y/%m/%d %H:%M:%S" "$START_DATETIME" "+%s"`
+		END_EPOCH=`date $OPTS "%y/%m/%d %H:%M:%S" "$END_DATETIME" "+%s"`
+		;;
 
-YEARTAKEN=`echo "$(($END_YEAR - $START_YEAR))"`
-MONTHTAKEN=`echo "$(($END_MONTH - $START_MONTH))"`
-DAYSTAKEN=`echo "$(($END_DATE - $START_DATE))"`
+	*)
+		echo -e "Invalid Format"
+		;;
+		
+esac
 
-echo -e "\nTotal time taken"
+# Calculate the difference in seconds
+difference=$((END_EPOCH - START_EPOCH))
 
-echo "$YEARTAKEN years $MONTHTAKEN months $DAYSTAKEN days $HOUR hours $MINS minutes $SECS seconds"
+# Calculate days, hours, minutes, and seconds
+days=$((difference / 86400))
+difference=$((difference % 86400))
+hours=$((difference / 3600))
+difference=$((difference % 3600))
+minutes=$((difference / 60))
+seconds=$((difference % 60))
+
+echo -e "\n\t==> Total time taken:\t$days days $hours hours $minutes minutes $seconds seconds\n"

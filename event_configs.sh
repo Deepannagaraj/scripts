@@ -10,4 +10,11 @@ fi
 
 ### head -3 $1 | tail -1 | jq 
 
+if [ -f "$1" ]; then
+   echo ""
+else
+   echo -e "\n\tFile does not exist: $FILE_NAME. Provide a valid File path\n"
+	exit 3
+fi
+
 grep '"Event":"SparkListenerEnvironmentUpdate"' $1 | jq 
