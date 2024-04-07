@@ -57,22 +57,19 @@ $ sh /var/tmp/timedifference.sh CONTAINER_LOG
 
 SAMPLE OUTPUT:
 ```bash
-$ python /var/tmp/split_log_yarn.py application_1707198725210_656778.log application_1707198725210_656778-split
+$ python /var/tmp/split_log_yarn.py APPLICATIONLOG APPLICATIONLOG-split
 
-$ sh /var/tmp/timedifference.sh application_1707198725210_656778-split/containers/container_e34_1707198725210_656778_01_000001/stderr 
-        ==> Start Timstamp
-24/04/03 19:34:12
+$ sh /var/tmp/timedifference.sh APPLICATIONLOG-split/containers/CONTAINERID/stderr
 
-        ==> Ending Timstamp
-24/04/03 19:48:18
+        -> Start Timestamp:     2024-03-28 14:14:32
 
-Total time taken
-0 years 0 months 0 days 00 hours 14 minutes 06 seconds
+        -> End Timestamp:       2024-03-29 08:25:41
+
+        ==> Total time taken:   0 days 18 hours 11 minutes 9 seconds
 ```
 
 **NOTE:**
-- This script might not work properly for Spark Application which are using custom log4j.properties.
-- This script might also not work properly for the other than Spark Applications.
+- This script might not work properly for YARN Applications which are using custom log4j.properties.
 
 ## sparkdiff.sh
 
@@ -90,13 +87,7 @@ $ sh /var/tmp/sparkdiff.sh EVENT_LOG_1 EVENT_LOG_2
 
 SAMPLE OUTPUT:
 ```bash
-$ sh /var/tmp/sparkdiff.sh application_1710074961896_286303 application_1710074961896_286368
-6,7c6,7
-< "spark.app.id":"application_1711234513896_286303"
-< "spark.app.name":"agg_customers"
----
-> "spark.app.id":"application_1711234513896_286368"}
-> "spark.app.name":"'agg_usage'"
+$ sh /var/tmp/sparkdiff.sh EVENT_LOG_1 EVENT_LOG_2
 10,11c10,11
 < "spark.driver.maxResultSize":"4g"
 < "spark.driver.memory":"20G"
@@ -136,7 +127,7 @@ $ sh /var/tmp/event_configs.sh SPARK_EVENT_LOG | grep CONFIG_TO_FIND
 
 SAMPLE OUTPUT:
 ```bash
-$ sh /var/tmp/event_configs.sh application_1710074961896_286303 | grep 'deployMode'
+$ sh /var/tmp/event_configs.sh EVENT_LOG | grep 'deployMode'
     "spark.submit.deployMode": "client",
 ```
 
