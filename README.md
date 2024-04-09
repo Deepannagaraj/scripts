@@ -36,7 +36,6 @@ For long running applications, we can add the below statement to the crontab fil
 */6 * * * * sh /root/capture_jstack.sh APPID USER PATH INTERATIONS SLEEPTIME >> /PATH_TO/command_output.txt
 ```
 
-
 ## timedifference.sh
 
 We can use this script to find the time taken for a container to run / finish.
@@ -203,4 +202,14 @@ All done. Please execute:
 Time: 2 s.
 
 $ beeline -f HiveRandom.hql
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/opt/cloudera/parcels/CDH-7.2.18-1.cdh7.2.18.p0.51297892/jars/log4j-slf4j-impl-2.18.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/opt/cloudera/parcels/CDH-7.2.18-1.cdh7.2.18.p0.51297892/jars/slf4j-reload4j-1.7.36.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+
+>>> SNIPPED <<<
+
+----------------------------------------------------------------------------------------------
+VERTICES: 03/03  [==========================>>] 100%  ELAPSED TIME: 18.13 s    
+----------------------------------------------------------------------------------------------
+301 rows affected (24.182 seconds)
 ```
