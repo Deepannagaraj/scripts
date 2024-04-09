@@ -12,6 +12,8 @@ Links to How-To section for the scripts:
 - [timedifference.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#timedifferencesh)
 - [sparkdiff.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#sparkdiffsh)
 - [event_configs.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#event_configssh)
+- [sparkdiff.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#hiveSampleTablesh)
+- [hiveRandomDataGen.py](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#hiveRandomDataGenpy)
 
 ==================================================================================
 
@@ -133,3 +135,72 @@ $ sh /var/tmp/event_configs.sh EVENT_LOG | grep 'deployMode'
 
 **NOTE:**
 - Make sure we have the jq command available to run this script.
+
+## hiveSampleTable.sh
+
+This script will create four tables under database *taxi_info* for testings.
+
+Download the scripts to the local node.
+```bash
+$ curl -o /var/tmp/hiveSampleTable.sh https://raw.githubusercontent.com/Deepannagaraj/scripts/main/hiveSampleTable.sh
+```
+
+Run the command like below.
+```bash
+$ sh /var/tmp/hiveSampleTable.sh
+```
+
+SAMPLE OUTPUT:
+```bash
+$ sh /var/tmp/hiveSampleTable.sh 
+
+        -> Downloading data files ...
+
+        -> Uploading data files to HDFS ...
+
+        -> Generating SQL queries ...
+
+        -> Running the SQL queries ...
+
+        -> Deleting all files ...
+
+         >>> Data loaded to the tables under Database taxi_info <<<
+```
+
+## hiveRandomDataGen.py
+
+Using this Python code, we can generate random data for the given table schema.
+
+Download the scripts to the local node.
+```bash
+$ curl -o /var/tmp/hiveRandomDataGen.py https://raw.githubusercontent.com/Deepannagaraj/scripts/main/hiveRandomDataGen.py
+```
+
+Run the command like below.
+```bash
+$ python /var/tmp/hiveRandomDataGen.py -s table_schema.out -n 300 [-p 1]
+```
+
+SAMPLE OUTPUT:
+```bash
+$ python /var/tmp/hiveRandomDataGen.py -s schema.out -n 300 -p 1
+
+
+Parsing input schema
+
+Checking main columns
+     3 columns found.
+
+Checking partitions
+     1 partitions found.
+
+Generating 300 rows for 3
+ columns and 1 partitions in table orc_table.
+
+All done. Please execute: 
+         $ beeline -f HiveRandom.hql
+
+Time: 2 s.
+
+$ beeline -f HiveRandom.hql
+```
