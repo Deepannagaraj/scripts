@@ -109,9 +109,6 @@ $ sh /var/tmp/sparkdiff.sh EVENT_LOG_1 EVENT_LOG_2
 > "RecordsRead.integer":"90636862794"
 ```
 
-**NOTE:**
-- Make sure we have the python3 command available to run this script.
-
 ## event_configs.sh
 
 Using this script we can find the value of a configuration parameter from Spark event log file.
