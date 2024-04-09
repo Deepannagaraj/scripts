@@ -23,12 +23,12 @@ This script is used to capture the JSTACKs running on a NodeManager (YARN).
 
 Copy the content of the script to the NodeManager node:
 ```bash
-$ curl -so /var/tmp/capture_jstack.sh https://raw.githubusercontent.com/Deepannagaraj/scripts/main/capture_jstack.sh
+curl -so /var/tmp/capture_jstack.sh https://raw.githubusercontent.com/Deepannagaraj/scripts/main/capture_jstack.sh
 ```
 
 Once the YARN application is in RUNNING state, we can run the script like below:
 ```bash
-$ sh /var/tmp/capture_jstack.sh APPID USER PATH INTERATIONS SLEEPTIME
+sh /var/tmp/capture_jstack.sh APPID USER PATH INTERATIONS SLEEPTIME
 ```
 
 For long running applications, we can add the below statement to the crontab file to capture the JSTACKs regularly.
@@ -42,18 +42,18 @@ We can use this script to find the time taken for a container to run / finish.
 
 Download the scripts to the local node.
 ```bash
-$ curl -so /var/tmp/timedifference.sh https://raw.githubusercontent.com/Deepannagaraj/scripts/main/timedifference.sh
-$ curl -so /var/tmp/split_log_yarn.py https://raw.githubusercontent.com/Deepannagaraj/scripts/main/split_log_yarn.py
+curl -so /var/tmp/timedifference.sh https://raw.githubusercontent.com/Deepannagaraj/scripts/main/timedifference.sh
+curl -so /var/tmp/split_log_yarn.py https://raw.githubusercontent.com/Deepannagaraj/scripts/main/split_log_yarn.py
 ```
 
 Split the YARN Application logs.
 ```bash
-$ python /var/tmp/split_log_yarn.py <APPLICATION_LOG> <OUTPUT_DIR>
+python /var/tmp/split_log_yarn.py <APPLICATION_LOG> <OUTPUT_DIR>
 ```
 
 Once the logs are split, pick any container log and run the below command.
 ```bash
-$ sh /var/tmp/timedifference.sh CONTAINER_LOG
+sh /var/tmp/timedifference.sh CONTAINER_LOG
 ```
 
 SAMPLE OUTPUT:
@@ -78,12 +78,12 @@ Using this script we can find the configuration differences between two Spark ap
 
 Download the scripts to the local node.
 ```bash
-$ curl -so /var/tmp/sparkdiff.sh https://raw.githubusercontent.com/Deepannagaraj/scripts/main/sparkdiff.sh
+curl -so /var/tmp/sparkdiff.sh https://raw.githubusercontent.com/Deepannagaraj/scripts/main/sparkdiff.sh
 ```
 
 Run the command like below.
 ```bash
-$ sh /var/tmp/sparkdiff.sh EVENT_LOG_1 EVENT_LOG_2
+sh /var/tmp/sparkdiff.sh EVENT_LOG_1 EVENT_LOG_2
 ```
 
 SAMPLE OUTPUT:
@@ -115,12 +115,12 @@ Using this script we can find the value of a configuration parameter from Spark 
 
 Download the scripts to the local node.
 ```bash
-$ curl -so /var/tmp/event_configs.sh https://raw.githubusercontent.com/Deepannagaraj/scripts/main/event_configs.sh
+curl -so /var/tmp/event_configs.sh https://raw.githubusercontent.com/Deepannagaraj/scripts/main/event_configs.sh
 ```
 
 Run the command like below.
 ```bash
-$ sh /var/tmp/event_configs.sh SPARK_EVENT_LOG | grep CONFIG_TO_FIND
+sh /var/tmp/event_configs.sh SPARK_EVENT_LOG | grep CONFIG_TO_FIND
 ```
 
 SAMPLE OUTPUT:
@@ -138,12 +138,12 @@ This script will create four tables under database *taxi_info* for testings.
 
 Download the scripts to the local node.
 ```bash
-$ curl -so /var/tmp/hiveSampleTable.sh https://raw.githubusercontent.com/Deepannagaraj/scripts/main/hiveSampleTable.sh
+curl -so /var/tmp/hiveSampleTable.sh https://raw.githubusercontent.com/Deepannagaraj/scripts/main/hiveSampleTable.sh
 ```
 
 Run the command like below.
 ```bash
-$ sh /var/tmp/hiveSampleTable.sh
+sh /var/tmp/hiveSampleTable.sh
 ```
 
 SAMPLE OUTPUT:
@@ -169,12 +169,12 @@ Using this Python code, we can generate random data for the given table schema.
 
 Download the scripts to the local node.
 ```bash
-$ curl -so /var/tmp/hiveRandomDataGen.py https://raw.githubusercontent.com/Deepannagaraj/scripts/main/hiveRandomDataGen.py
+curl -so /var/tmp/hiveRandomDataGen.py https://raw.githubusercontent.com/Deepannagaraj/scripts/main/hiveRandomDataGen.py
 ```
 
 Run the command like below.
 ```bash
-$ python /var/tmp/hiveRandomDataGen.py -s table_schema.out -n 300 [-p 1]
+python /var/tmp/hiveRandomDataGen.py -s table_schema.out -n 300 [-p 1]
 ```
 
 SAMPLE OUTPUT:
