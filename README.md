@@ -23,7 +23,7 @@ This script is used to capture the JSTACKs running on a NodeManager (YARN).
 
 Copy the content of the script to the NodeManager node:
 ```bash
-$ curl -o /var/tmp/capture_jstack.sh https://raw.githubusercontent.com/Deepannagaraj/scripts/main/capture_jstack.sh
+$ curl -so /var/tmp/capture_jstack.sh https://raw.githubusercontent.com/Deepannagaraj/scripts/main/capture_jstack.sh
 ```
 
 Once the YARN application is in RUNNING state, we can run the script like below:
@@ -42,8 +42,8 @@ We can use this script to find the time taken for a container to run / finish.
 
 Download the scripts to the local node.
 ```bash
-$ curl -o /var/tmp/timedifference.sh https://raw.githubusercontent.com/Deepannagaraj/scripts/main/timedifference.sh
-$ curl -o /var/tmp/split_log_yarn.py https://raw.githubusercontent.com/Deepannagaraj/scripts/main/split_log_yarn.py
+$ curl -so /var/tmp/timedifference.sh https://raw.githubusercontent.com/Deepannagaraj/scripts/main/timedifference.sh
+$ curl -so /var/tmp/split_log_yarn.py https://raw.githubusercontent.com/Deepannagaraj/scripts/main/split_log_yarn.py
 ```
 
 Split the YARN Application logs.
@@ -78,7 +78,7 @@ Using this script we can find the configuration differences between two Spark ap
 
 Download the scripts to the local node.
 ```bash
-$ curl -o /var/tmp/sparkdiff.sh https://raw.githubusercontent.com/Deepannagaraj/scripts/main/sparkdiff.sh
+$ curl -so /var/tmp/sparkdiff.sh https://raw.githubusercontent.com/Deepannagaraj/scripts/main/sparkdiff.sh
 ```
 
 Run the command like below.
@@ -115,7 +115,7 @@ Using this script we can find the value of a configuration parameter from Spark 
 
 Download the scripts to the local node.
 ```bash
-$ curl -o /var/tmp/event_configs.sh https://raw.githubusercontent.com/Deepannagaraj/scripts/main/event_configs.sh
+$ curl -so /var/tmp/event_configs.sh https://raw.githubusercontent.com/Deepannagaraj/scripts/main/event_configs.sh
 ```
 
 Run the command like below.
@@ -138,7 +138,7 @@ This script will create four tables under database *taxi_info* for testings.
 
 Download the scripts to the local node.
 ```bash
-$ curl -o /var/tmp/hiveSampleTable.sh https://raw.githubusercontent.com/Deepannagaraj/scripts/main/hiveSampleTable.sh
+$ curl -so /var/tmp/hiveSampleTable.sh https://raw.githubusercontent.com/Deepannagaraj/scripts/main/hiveSampleTable.sh
 ```
 
 Run the command like below.
@@ -169,7 +169,7 @@ Using this Python code, we can generate random data for the given table schema.
 
 Download the scripts to the local node.
 ```bash
-$ curl -o /var/tmp/hiveRandomDataGen.py https://raw.githubusercontent.com/Deepannagaraj/scripts/main/hiveRandomDataGen.py
+$ curl -so /var/tmp/hiveRandomDataGen.py https://raw.githubusercontent.com/Deepannagaraj/scripts/main/hiveRandomDataGen.py
 ```
 
 Run the command like below.
