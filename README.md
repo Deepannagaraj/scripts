@@ -12,7 +12,7 @@ Links to How-To section for the scripts:
 - [timedifference.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#timedifferencesh)
 - [sparkdiff.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#sparkdiffsh)
 - [event_configs.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#event_configssh)
-- [sparkdiff.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#hiveSampleTablesh)
+- [hiveSampleTable.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#hiveSampleTablesh)
 - [hiveRandomDataGen.py](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#hiveRandomDataGenpy)
 
 ==================================================================================
