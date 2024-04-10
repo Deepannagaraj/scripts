@@ -179,7 +179,7 @@ beeline -e "SHOW CREATE TABLE database.table" > table_schema.out
 
 Run the command like below.
 ```bash
-python /var/tmp/hiveRandomDataGen.py -s table_schema.out -n 300 -- optional -- -p 1 -d database
+python /var/tmp/hiveRandomDataGen.py -s table_schema.out -n 300 **OPTIONAL** -p 1 -d database
 ```
 
 SAMPLE OUTPUT:
