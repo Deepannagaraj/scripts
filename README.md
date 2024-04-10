@@ -172,9 +172,14 @@ Download the scripts to the local node.
 curl -so /var/tmp/hiveRandomDataGen.py https://raw.githubusercontent.com/Deepannagaraj/scripts/main/hiveRandomDataGen.py
 ```
 
+Generate the table_schema.out file.
+```bash
+beeline -e "SHOW CREATE TABLE database.table" > table_schema.out
+```
+
 Run the command like below.
 ```bash
-python /var/tmp/hiveRandomDataGen.py -s table_schema.out -n 300 [-p 1]
+python /var/tmp/hiveRandomDataGen.py -s table_schema.out -n 300 -- optional -- -p 1 -d database
 ```
 
 SAMPLE OUTPUT:
