@@ -28,12 +28,12 @@ curl -so /var/tmp/capture_jstack.sh https://raw.githubusercontent.com/Deepannaga
 
 Once the YARN application is in RUNNING state, we can run the script like below:
 ```bash
-sh /var/tmp/capture_jstack.sh APPID USER PATH INTERATIONS SLEEPTIME
+sh /var/tmp/capture_jstack.sh APP_ID/APP_NAME USER PATH INTERATIONS SLEEPTIME
 ```
 
 For long running applications, we can add the below statement to the crontab file to capture the JSTACKs regularly.
 ```bash
-*/6 * * * * sh /root/capture_jstack.sh APPID USER PATH INTERATIONS SLEEPTIME >> /PATH_TO/command_output.txt
+*/6 * * * * sh /root/capture_jstack.sh APP_ID/APP_NAME USER PATH INTERATIONS SLEEPTIME >> /PATH_TO/command_output.txt
 ```
 
 ## timedifference.sh
