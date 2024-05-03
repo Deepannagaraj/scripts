@@ -18,7 +18,7 @@ fi
 
 ### Start time date calculation:
 START_DATETIME_1=`grep ^[0-9] $FILE_NAME | head -n1 | awk -F' ' {'print $1,$2'} | awk -F',' {'print $1'}`
-SDT=`echo $START_DATETIME_1 | grep [1-9]$`
+SDT=`echo $START_DATETIME_1 | grep [0-9]$`
 
 if [ -z "$SDT" ]; then
 	START_DATETIME=$(sed 's/.\{4\}$//' <<<"$START_DATETIME_1")
@@ -30,7 +30,7 @@ echo -e "\t-> Start Timestamp:\t$START_DATETIME"
 
 ### End time date calculation:
 END_DATETIME_1=`grep ^[0-9] $FILE_NAME | tail -n1 | awk -F' ' {'print $1,$2'} | awk -F',' {'print $1'}`
-EDT=`echo $END_DATETIME_1 | grep [1-9]$`
+EDT=`echo $END_DATETIME_1 | grep [0-9]$`
 
 if [ -z "$SDT" ]; then
 	END_DATETIME=$(sed 's/.\{4\}$//' <<<"$END_DATETIME_1")
