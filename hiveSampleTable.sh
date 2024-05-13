@@ -31,7 +31,7 @@ if [ "$KRB_ENABLED" -eq 0 ]; then
     beeline -n hive -p hive -f $TEMP_LOCATION/create_database_table.hql 2&> /dev/null
     beeline -n hive -p hive -f $TEMP_LOCATION/load_data.hql 2&> /dev/null
 else
-	beeline -f $TEMP_LOCATION/create_database_table.hql 2&> /dev/null
+    beeline -f $TEMP_LOCATION/create_database_table.hql 2&> /dev/null
     beeline -f $TEMP_LOCATION/load_data.hql 2&> /dev/null
 fi
 
