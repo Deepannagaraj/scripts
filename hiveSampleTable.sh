@@ -24,8 +24,16 @@ echo -e "USE ${DATABASE};\n\nLOAD DATA INPATH '/tmp/fhv_tripdata_2023-01.parquet
 
 ## Running the SQL files.
 echo -e "\n\t-> Running the SQL queries ..."
-beeline -f $TEMP_LOCATION/create_database_table.hql 2&> /dev/null
-beeline -f $TEMP_LOCATION/load_data.hql 2&> /dev/null
+
+KRB_ENABLED=1
+
+if [ "$KRB_ENABLED" -eq 0 ]; then
+    beeline -n hive -p hive -f $TEMP_LOCATION/create_database_table.hql 2&> /dev/null
+    beeline -n hive -p hive -f $TEMP_LOCATION/load_data.hql 2&> /dev/null
+else
+	beeline -f $TEMP_LOCATION/create_database_table.hql 2&> /dev/null
+    beeline -f $TEMP_LOCATION/load_data.hql 2&> /dev/null
+fi
 
 ## Deleting the files.
 echo -e "\n\t-> Deleting all files ..."
