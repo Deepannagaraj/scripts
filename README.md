@@ -141,6 +141,11 @@ Download the scripts to the local node.
 curl -so /var/tmp/hiveSampleTable.sh https://raw.githubusercontent.com/Deepannagaraj/scripts/main/hiveSampleTable.sh
 ```
 
+Disable the Kerberos if cluster is not Kerberised.
+```bash
+sed -i 's/KRB_ENABLED=1/KRB_ENABLED=0/' /var/tmp/hiveSampleTable.sh
+```
+
 Run the command like below.
 ```bash
 sh /var/tmp/hiveSampleTable.sh
