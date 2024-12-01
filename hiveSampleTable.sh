@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 TEMP_LOCATION=/var/tmp/hiveLoadData
 mkdir $TEMP_LOCATION
 hdfs dfs -mkdir -p $TEMP_LOCATION
@@ -29,11 +31,11 @@ echo -e "\n\t-> Running the SQL queries ..."
 KRB_ENABLED=1
 
 if [ "$KRB_ENABLED" -eq 0 ]; then
-    beeline -n hive -p hive -f $TEMP_LOCATION/create_database_table.hql 2&> /dev/null
-    beeline -n hive -p hive -f $TEMP_LOCATION/load_data.hql 2&> /dev/null
+    beeline -n hive -p hive -f $TEMP_LOCATION/create_database_table.hql 2> /dev/null
+    beeline -n hive -p hive -f $TEMP_LOCATION/load_data.hql 2> /dev/null
 else
-    beeline -f $TEMP_LOCATION/create_database_table.hql 2&> /dev/null
-    beeline -f $TEMP_LOCATION/load_data.hql 2&> /dev/null
+    beeline -f $TEMP_LOCATION/create_database_table.hql 2> /dev/null
+    beeline -f $TEMP_LOCATION/load_data.hql 2> /dev/null
 fi
 
 ## Deleting the files.
