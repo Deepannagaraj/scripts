@@ -2,12 +2,12 @@
 
 set -e
 
-TEMP_LOCATION=/var/tmp/hiveLoadData
 HDFS_TEMP=/tmp/hiveLoadData
-mkdir $TEMP_LOCATION
-hdfs dfs -mkdir -p $HDFS_TEMP
-
+TEMP_LOCATION=/var/tmp/hiveLoadData
 DATABASE=taxi_info
+
+hdfs dfs -mkdir -p $HDFS_TEMP
+mkdir $TEMP_LOCATION
 
 ## Download the data.
 echo -e "\n\t-> Downloading data files ..."
