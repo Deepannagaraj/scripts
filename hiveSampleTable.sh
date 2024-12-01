@@ -3,7 +3,7 @@
 set -e
 
 TEMP_LOCATION=/var/tmp/hiveLoadData
-HDFS_TEMP=/var/hiveLoadData
+HDFS_TEMP=/tmp/hiveLoadData
 mkdir $TEMP_LOCATION
 hdfs dfs -mkdir -p $HDFS_TEMP
 
@@ -41,7 +41,7 @@ fi
 
 ## Deleting the files.
 echo -e "\n\t-> Deleting all files ..."
-hdfs dfs -rm -f -skipTrash $TEMP_LOCATION/fhv_tripdata_2023-01.parquet $TEMP_LOCATION/fhvhv_tripdata_2023-01.parquet $TEMP_LOCATION/green_tripdata_2023-01.parquet $TEMP_LOCATION/yellow_tripdata_2023-01.parquet 2&> /dev/null
+hdfs dfs -rm -f -skipTrash $HDFS_TEMP/fhv_tripdata_2023-01.parquet $HDFS_TEMP/fhvhv_tripdata_2023-01.parquet $HDFS_TEMP/green_tripdata_2023-01.parquet $HDFS_TEMP/yellow_tripdata_2023-01.parquet 2&> /dev/null
 rm -rf $TEMP_LOCATION 
 
 echo -e "\n\t >>> Data loaded to the tables under Database ${DATABASE} <<<\n"
