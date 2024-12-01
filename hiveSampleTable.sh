@@ -18,7 +18,7 @@ curl -so $TEMP_LOCATION/yellow_tripdata_2023-01.parquet https://d37ci6vzurychx.c
 
 ## Upload the data to HDFS.
 echo -e "\n\t-> Uploading data files to HDFS ..."
-hdfs dfs -put $TEMP_LOCATION/fhv_tripdata_2023-01.parquet $TEMP_LOCATION/fhvhv_tripdata_2023-01.parquet $TEMP_LOCATION/green_tripdata_2023-01.parquet $TEMP_LOCATION/yellow_tripdata_2023-01.parquet $TEMP_LOCATION
+hdfs dfs -put $TEMP_LOCATION/fhv_tripdata_2023-01.parquet $TEMP_LOCATION/fhvhv_tripdata_2023-01.parquet $TEMP_LOCATION/green_tripdata_2023-01.parquet $TEMP_LOCATION/yellow_tripdata_2023-01.parquet $HDFS_TEMP
 
 ## Creating the HQL files.
 echo -e "\n\t-> Generating SQL queries ..."
