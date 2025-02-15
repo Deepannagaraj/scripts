@@ -9,11 +9,12 @@ We have some handy scripts which will help us in reducing the manual work for fe
 Links to How-To section for the scripts:
 
 - [capture_jstack.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#capture_jstacksh)
-- [timedifference.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#timedifferencesh)
-- [sparkdiff.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#sparkdiffsh)
+- [copy_keytabs.sh]
 - [event_configs.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#event_configssh)
-- [hiveSampleTable.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#hiveSampleTablesh)
 - [hiveRandomDataGen.py](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#hiveRandomDataGenpy)
+- [hiveSampleTable.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#hiveSampleTablesh)
+- [sparkdiff.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#sparkdiffsh)
+- [timedifference.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#timedifferencesh)
 
 ==================================================================================
 
@@ -36,77 +37,18 @@ For long running applications, we can add the below statement to the crontab fil
 */6 * * * * sh /root/capture_jstack.sh APP_ID/APP_NAME USER PATH INTERATIONS SLEEPTIME >> /PATH_TO/command_output.txt
 ```
 
-## timedifference.sh
+## copy_keytabs.sh
 
-We can use this script to find the time taken for a container to run / finish.
-
-Download the scripts to the local node.
-```bash
-curl -so /var/tmp/timedifference.sh https://raw.githubusercontent.com/Deepannagaraj/scripts/main/timedifference.sh
-curl -so /var/tmp/split_log_yarn.py https://raw.githubusercontent.com/Deepannagaraj/scripts/main/split_log_yarn.py
-```
-
-Split the YARN Application logs.
-```bash
-python /var/tmp/split_log_yarn.py <APPLICATION_LOG> <OUTPUT_DIR>
-```
-
-Once the logs are split, pick any container log and run the below command.
-```bash
-sh /var/tmp/timedifference.sh CONTAINER_LOG
-```
-
-SAMPLE OUTPUT:
-```bash
-$ python /var/tmp/split_log_yarn.py APPLICATIONLOG APPLICATIONLOG-split
-
-$ sh /var/tmp/timedifference.sh APPLICATIONLOG-split/containers/CONTAINERID/stderr
-
-        -> Start Timestamp:     2024-03-28 14:14:32
-
-        -> End Timestamp:       2024-03-29 08:25:41
-
-        ==> Total time taken:   0 days 18 hours 11 minutes 9 seconds
-```
-
-**NOTE:**
-- This script might not work properly for YARN Applications which are using custom log4j.properties.
-
-## sparkdiff.sh
-
-Using this script we can find the configuration differences between two Spark applications.
+This script copies all recent Service Keytabs to the specified path.
 
 Download the scripts to the local node.
 ```bash
-curl -so /var/tmp/sparkdiff.sh https://raw.githubusercontent.com/Deepannagaraj/scripts/main/sparkdiff.sh
+curl -so /var/tmp/copy_keytabs.sh https://raw.githubusercontent.com/Deepannagaraj/scripts/refs/heads/main/copy_keytabs.sh
 ```
 
-Run the command like below.
+Run the script to copy the Keytabs.
 ```bash
-sh /var/tmp/sparkdiff.sh EVENT_LOG_1 EVENT_LOG_2
-```
-
-SAMPLE OUTPUT:
-```bash
-$ sh /var/tmp/sparkdiff.sh EVENT_LOG_1 EVENT_LOG_2
-10,11c10,11
-< "spark.driver.maxResultSize":"4g"
-< "spark.driver.memory":"20G"
----
-> "spark.driver.maxResultSize":"3g"
-> "spark.driver.memory":"60G"
-16c16
-< "spark.executor.cores":"4"
----
-> "spark.executor.cores":"3"
-91,93c91,93
-< "BytesRead.integer":"1175839872364"
-< "BytesRead.iec":"1.1Ti"
-< "RecordsRead.integer":"96324947297"
----
-> "BytesRead.integer":"1333777864594"
-> "BytesRead.iec":"1.3Ti"
-> "RecordsRead.integer":"90636862794"
+sh /var/tmp/copy_keytabs.sh
 ```
 
 ## event_configs.sh
@@ -131,42 +73,6 @@ $ sh /var/tmp/event_configs.sh EVENT_LOG | grep 'deployMode'
 
 **NOTE:**
 - Make sure we have the jq command available to run this script.
-
-## hiveSampleTable.sh
-
-This script will create four tables under database *taxi_info* for testings.
-
-Download the scripts to the local node.
-```bash
-curl -so /var/tmp/hiveSampleTable.sh https://raw.githubusercontent.com/Deepannagaraj/scripts/main/hiveSampleTable.sh
-```
-
-Disable the Kerberos if cluster is not Kerberised.
-```bash
-sed -i 's/KRB_ENABLED=1/KRB_ENABLED=0/' /var/tmp/hiveSampleTable.sh
-```
-
-Run the command like below.
-```bash
-sh /var/tmp/hiveSampleTable.sh
-```
-
-SAMPLE OUTPUT:
-```bash
-$ sh /var/tmp/hiveSampleTable.sh 
-
-        -> Downloading data files ...
-
-        -> Uploading data files to HDFS ...
-
-        -> Generating SQL queries ...
-
-        -> Running the SQL queries ...
-
-        -> Deleting all files ...
-
-         >>> Data loaded to the tables under Database taxi_info <<<
-```
 
 ## hiveRandomDataGen.py
 
@@ -220,3 +126,107 @@ VERTICES: 03/03  [==========================>>] 100%  ELAPSED TIME: 18.13 s
 ----------------------------------------------------------------------------------------------
 301 rows affected (24.182 seconds)
 ```
+
+## hiveSampleTable.sh
+
+This script will create four tables under database *taxi_info* for testings.
+
+Download the scripts to the local node.
+```bash
+curl -so /var/tmp/hiveSampleTable.sh https://raw.githubusercontent.com/Deepannagaraj/scripts/main/hiveSampleTable.sh
+```
+
+Run the command like below.
+```bash
+sh /var/tmp/hiveSampleTable.sh
+```
+
+SAMPLE OUTPUT:
+```bash
+$ sh /var/tmp/hiveSampleTable.sh 
+
+        -> Downloading data files ...
+
+        -> Uploading data files to HDFS ...
+
+        -> Generating SQL queries ...
+
+        -> Running the SQL queries ...
+
+        -> Deleting all files ...
+
+         >>> Data loaded to the tables under Database taxi_info <<<
+```
+
+## sparkdiff.sh
+
+Using this script we can find the configuration differences between two Spark applications.
+
+Download the scripts to the local node.
+```bash
+curl -so /var/tmp/sparkdiff.sh https://raw.githubusercontent.com/Deepannagaraj/scripts/main/sparkdiff.sh
+```
+
+Run the command like below.
+```bash
+sh /var/tmp/sparkdiff.sh EVENT_LOG_1 EVENT_LOG_2
+```
+
+SAMPLE OUTPUT:
+```bash
+$ sh /var/tmp/sparkdiff.sh EVENT_LOG_1 EVENT_LOG_2
+10,11c10,11
+< "spark.driver.maxResultSize":"4g"
+< "spark.driver.memory":"20G"
+---
+> "spark.driver.maxResultSize":"3g"
+> "spark.driver.memory":"60G"
+16c16
+< "spark.executor.cores":"4"
+---
+> "spark.executor.cores":"3"
+91,93c91,93
+< "BytesRead.integer":"1175839872364"
+< "BytesRead.iec":"1.1Ti"
+< "RecordsRead.integer":"96324947297"
+---
+> "BytesRead.integer":"1333777864594"
+> "BytesRead.iec":"1.3Ti"
+> "RecordsRead.integer":"90636862794"
+```
+
+## timedifference.sh
+
+We can use this script to find the time taken for a container to run / finish.
+
+Download the scripts to the local node.
+```bash
+curl -so /var/tmp/timedifference.sh https://raw.githubusercontent.com/Deepannagaraj/scripts/main/timedifference.sh
+curl -so /var/tmp/split_log_yarn.py https://raw.githubusercontent.com/Deepannagaraj/scripts/main/split_log_yarn.py
+```
+
+Split the YARN Application logs.
+```bash
+python /var/tmp/split_log_yarn.py <APPLICATION_LOG> <OUTPUT_DIR>
+```
+
+Once the logs are split, pick any container log and run the below command.
+```bash
+sh /var/tmp/timedifference.sh CONTAINER_LOG
+```
+
+SAMPLE OUTPUT:
+```bash
+$ python /var/tmp/split_log_yarn.py APPLICATIONLOG APPLICATIONLOG-split
+
+$ sh /var/tmp/timedifference.sh APPLICATIONLOG-split/containers/CONTAINERID/stderr
+
+        -> Start Timestamp:     2024-03-28 14:14:32
+
+        -> End Timestamp:       2024-03-29 08:25:41
+
+        ==> Total time taken:   0 days 18 hours 11 minutes 9 seconds
+```
+
+**NOTE:**
+- This script might not work properly for YARN Applications which are using custom log4j.properties.
