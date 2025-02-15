@@ -9,7 +9,7 @@ We have some handy scripts which will help us in reducing the manual work for fe
 Links to How-To section for the scripts:
 
 - [capture_jstack.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#capture_jstacksh)
-- [copy_keytabs.sh]
+- [copy_keytabs.sh](https://github.com/Deepannagaraj/scripts/tree/main?tab=readme-ov-file#copy_keytabssh)
 - [event_configs.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#event_configssh)
 - [hiveRandomDataGen.py](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#hiveRandomDataGenpy)
 - [hiveSampleTable.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#hiveSampleTablesh)
