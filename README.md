@@ -9,12 +9,19 @@ We have some handy scripts which will help us in reducing the manual work for fe
 Links to How-To section for the scripts:
 
 - [capture_jstack.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#capture_jstacksh)
+<<<<<<< HEAD
 - [copy_keytabs.sh]
+=======
+- [copy_keytabs.sh](https://github.com/Deepannagaraj/scripts/tree/main?tab=readme-ov-file#copy_keytabssh)
+>>>>>>> refs/remotes/origin/main
 - [event_configs.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#event_configssh)
 - [hiveRandomDataGen.py](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#hiveRandomDataGenpy)
 - [hiveSampleTable.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#hiveSampleTablesh)
 - [sparkdiff.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#sparkdiffsh)
+<<<<<<< HEAD
 - [split_log_yarn.py]
+=======
+>>>>>>> refs/remotes/origin/main
 - [timedifference.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#timedifferencesh)
 
 ==================================================================================
@@ -230,4 +237,8 @@ $ sh /var/tmp/timedifference.sh APPLICATIONLOG-split/containers/CONTAINERID/stde
 ```
 
 **NOTE:**
+<<<<<<< HEAD
 - This script might not work properly for YARN Applications which are using custom log4j.properties.
+=======
+- This script might not work properly for YARN Applications which are using custom log4j.properties.
+>>>>>>> refs/remotes/origin/main
