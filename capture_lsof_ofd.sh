@@ -89,6 +89,12 @@ perform_cleanup() {
 	find ${LSOF_OUT_PATH}/*.txt -type f -not -newermt "$(date -d '1 day ago' '+%Y-%m-%d %H:%M:%S')" -exec rm {} \;
 }
 
+collection_process() {
+	list_contids
+	collect_lsof
+	perform_cleanup
+}
+
 ## Check if the given is a APPID then check the status and collect the JSTACKs .. Else fail.
 if [[ $APP_INFO =~ ^application_[0-9]+_[0-9]+$ ]]; then
 
@@ -103,9 +109,7 @@ if [[ $APP_INFO =~ ^application_[0-9]+_[0-9]+$ ]]; then
 		exit 4
 	else
 		echo -e "\n\tApplication $APP_ID is in running status. Continuing with JSTACK collection !!!\n"
-		list_contids
-		collect_lsof
-		perform_cleanup
+		collection_process
 		exit 0
 	fi
 fi
@@ -120,9 +124,7 @@ fi
 
 for APP_ID in $APPLICATION_LIST
 	do
-		list_contids
-		collect_lsof
-		perform_cleanup
+		collection_process
 done
 
 ## Crontab format to schedule the jobs.
