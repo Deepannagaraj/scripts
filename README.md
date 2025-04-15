@@ -196,6 +196,22 @@ $ sh /var/tmp/sparkdiff.sh EVENT_LOG_1 EVENT_LOG_2
 > "RecordsRead.integer":"90636862794"
 ```
 
+## split_log_yarn.py
+
+This python code can be used to split the YARN application logs to separate container logs.
+
+Download the scripts to the local node.
+```bash
+curl -so /var/tmp/split_log_yarn.py https://raw.githubusercontent.com/Deepannagaraj/scripts/main/split_log_yarn.py
+```
+
+Split the YARN Application logs.
+```bash
+python /var/tmp/split_log_yarn.py <APPLICATION_LOG> <OUTPUT_DIR>
+```
+
+Continue to troubleshoot the issue with the split logs.
+
 ## timedifference.sh
 
 We can use this script to find the time taken for a container to run / finish.
