@@ -14,7 +14,7 @@ Links to How-To section for the scripts:
 - [hiveRandomDataGen.py](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#hiveRandomDataGenpy)
 - [hiveSampleTable.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#hiveSampleTablesh)
 - [sparkdiff.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#sparkdiffsh)
-- [split_log_yarn.py]
+- [split_log_yarn.py](https://github.com/Deepannagaraj/scripts/blob/main/README.md#split_log_yarnpy)
 - [timedifference.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#timedifferencesh)
 
 ==================================================================================
