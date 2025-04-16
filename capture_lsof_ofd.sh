@@ -18,9 +18,9 @@ fi
 
 ## Validating the inputs.
 APP_INFO=$1
-LSOF_OUT_PATH=$3
-NUM_ITERATIONS=$4
-SLEEP_TIME=$5
+LSOF_OUT_PATH=$2
+NUM_ITERATIONS=$3
+SLEEP_TIME=$4
 
 list_contids() {
 	## Getting the PID of the containers.
