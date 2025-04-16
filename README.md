@@ -21,7 +21,7 @@ Links to How-To section for the scripts:
 
 ## capture_jstack.sh
 
-This script is used to capture the JSTACKs running on a NodeManager (YARN).
+This script is used to capture the JSTACKs for containers running on a NodeManager (YARN).
 
 Copy the content of the script to the NodeManager node:
 ```bash
@@ -35,7 +35,7 @@ sh /var/tmp/capture_jstack.sh APP_ID/APP_NAME USER PATH INTERATIONS SLEEPTIME
 
 For long running applications, we can add the below statement to the crontab file to capture the JSTACKs regularly.
 ```bash
-*/6 * * * * sh /root/capture_jstack.sh APP_ID/APP_NAME USER PATH INTERATIONS SLEEPTIME >> /PATH_TO/command_output.txt
+*/6 * * * * sh /var/tmp/capture_jstack.sh APP_ID/APP_NAME USER PATH INTERATIONS SLEEPTIME >> /PATH_TO/command_output.txt
 ```
 
 ## copy_keytabs.sh
@@ -50,6 +50,25 @@ curl -so /var/tmp/copy_keytabs.sh https://raw.githubusercontent.com/Deepannagara
 Run the script to copy the Keytabs.
 ```bash
 sh /var/tmp/copy_keytabs.sh
+```
+
+## capture_lsof_ofd.sh
+
+This script is used to capture the lsof output for containers running on a NodeManager (YARN).
+
+Copy the content of the script to the NodeManager node:
+```bash
+curl -so /var/tmp/capture_lsof_ofd.sh https://raw.githubusercontent.com/Deepannagaraj/scripts/refs/heads/main/capture_lsof_ofd.sh
+```
+
+Once the YARN application is in RUNNING state, we can run the script like below:
+```bash
+sh /var/tmp/capture_lsof_ofd.sh APP_ID/APP_NAME PATH INTERATIONS SLEEPTIME
+```
+
+For long running applications, we can add the below statement to the crontab file to capture the JSTACKs regularly.
+```bash
+*/6 * * * * sh /var/tmp/capture_lsof_ofd.sh APP_ID/APP_NAME PATH INTERATIONS SLEEPTIME >> /PATH_TO/command_output.txt
 ```
 
 ## event_configs.sh
