@@ -36,6 +36,12 @@ list_contids() {
 }
 
 collect_lsof() {
+	## Creating the output directory.
+	if [ ! -d "$LSOF_OUT_PATH" ]; then
+		echo -e "Output directory doesn't exist. Creating a new one...\n"
+		mkdir $LSOF_OUT_PATH
+	fi
+
 	## Capturing the JSTACKs.
 	ITERATIONS=1
 
@@ -60,12 +66,6 @@ collect_lsof() {
 }
 
 perform_cleanup() {
-	## Creating the output directory.
-	if [ ! -d "$LSOF_OUT_PATH" ]; then
-		echo -e "Output directory doesn't exist. Creating a new one...\n"
-		mkdir $LSOF_OUT_PATH
-	fi
-
 	## Clean the JSTACK after every hour.
 	CURRENT_TIME=$(date +%s)
 	CLEAN_FILE=$LSOF_OUT_PATH/__last_clean_time
