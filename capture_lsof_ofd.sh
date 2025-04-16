@@ -52,6 +52,8 @@ collect_lsof() {
 			do 
 				CONT_ID=$(ps -ef | grep "$CONT_PID" | tr ' ' '\n' | grep 'container.log.dir' | awk -F'/' {'print $NF'})	
 				echo -e "Collecting Open Files for Container $CONT_ID -- Process $CONT_PID ..."
+				sudo -u ${USER} date >> ${LSOF_OUT_PATH}/jstacks_${CONT_ID}.txt
+				sudo -u ${USER} ${LSOF_COM} -p ${CONT_PID} | wc -l >> ${LSOF_OUT_PATH}/jstacks_${CONT_ID}.txt
 				sudo -u ${USER} ${LSOF_COM} -p ${CONT_PID} >> ${LSOF_OUT_PATH}/jstacks_${CONT_ID}.txt
 		done
 		#date
