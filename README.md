@@ -13,7 +13,7 @@ Links to How-To section for the scripts:
 - [event_configs.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#event_configssh)
 - [hiveRandomDataGen.py](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#hiveRandomDataGenpy)
 - [hiveSampleTable.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#hiveSampleTablesh)
-- [sparkdiff.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#sparkdiffsh)
+- [spark-diff.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#sparkdiffsh)
 - [split_log_yarn.py](https://github.com/Deepannagaraj/scripts/blob/main/README.md#split_log_yarnpy)
 - [timedifference.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#timedifferencesh)
 
@@ -178,23 +178,23 @@ $ sh /var/tmp/hiveSampleTable.sh
          >>> Data loaded to the tables under Database taxi_info <<<
 ```
 
-## sparkdiff.sh
+## spark-diff.sh
 
 Using this script we can find the configuration differences between two Spark applications.
 
 Download the scripts to the local node.
 ```bash
-curl -so /var/tmp/sparkdiff.sh https://raw.githubusercontent.com/Deepannagaraj/scripts/main/sparkdiff.sh
+curl -so /var/tmp/spark-diff.sh https://raw.githubusercontent.com/Deepannagaraj/scripts/refs/heads/main/spark-diff.sh
 ```
 
 Run the command like below.
 ```bash
-sh /var/tmp/sparkdiff.sh EVENT_LOG_1 EVENT_LOG_2
+sh /var/tmp/spark-diff.sh EVENT_LOG_1 EVENT_LOG_2
 ```
 
 SAMPLE OUTPUT:
 ```bash
-$ sh /var/tmp/sparkdiff.sh EVENT_LOG_1 EVENT_LOG_2
+$ sh /var/tmp/spark-diff.sh EVENT_LOG_1 EVENT_LOG_2
         =====================
         Spark Properties Diff
         =====================
