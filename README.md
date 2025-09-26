@@ -13,7 +13,7 @@ Links to How-To section for the scripts:
 - [event_configs.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#event_configssh)
 - [hiveRandomDataGen.py](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#hiveRandomDataGenpy)
 - [hiveSampleTable.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#hiveSampleTablesh)
-- [spark-diff.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#sparkdiffsh)
+- [spark-diff.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#spark-diffsh)
 - [split_log_yarn.py](https://github.com/Deepannagaraj/scripts/blob/main/README.md#split_log_yarnpy)
 - [timedifference.sh](https://github.com/Deepannagaraj/scripts?tab=readme-ov-file#timedifferencesh)
 
