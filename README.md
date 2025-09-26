@@ -195,24 +195,14 @@ sh /var/tmp/sparkdiff.sh EVENT_LOG_1 EVENT_LOG_2
 SAMPLE OUTPUT:
 ```bash
 $ sh /var/tmp/sparkdiff.sh EVENT_LOG_1 EVENT_LOG_2
-10,11c10,11
-< "spark.driver.maxResultSize":"4g"
-< "spark.driver.memory":"20G"
----
-> "spark.driver.maxResultSize":"3g"
-> "spark.driver.memory":"60G"
-16c16
-< "spark.executor.cores":"4"
----
-> "spark.executor.cores":"3"
-91,93c91,93
-< "BytesRead.integer":"1175839872364"
-< "BytesRead.iec":"1.1Ti"
-< "RecordsRead.integer":"96324947297"
----
-> "BytesRead.integer":"1333777864594"
-> "BytesRead.iec":"1.3Ti"
-> "RecordsRead.integer":"90636862794"
+        =====================
+        Spark Properties Diff
+        =====================
+  "spark.sql.hive.convertMetastoreParquet": "false",          |   "spark.sql.hive.convertMetastoreParquet": "true",
+                                                              >   "spark.serializer.objectStreamReset": "100",
+                                                              >   "spark.executor.memoryOverhead": "512",
+  "spark.driver.port": "30439",                               |   "spark.driver.port": "32239",
+                                                              >   "hive.exec.dynamic.partition": "true",
 ```
 
 ## split_log_yarn.py
